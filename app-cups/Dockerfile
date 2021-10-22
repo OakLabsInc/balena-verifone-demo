@@ -32,8 +32,6 @@ RUN apt-get -y update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-
-
 RUN useradd \
       --groups=sudo,lp,lpadmin \
       --create-home \

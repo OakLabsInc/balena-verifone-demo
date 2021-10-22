@@ -1,0 +1,35 @@
+version: '2.1'
+
+volumes:
+  xserver:
+services:
+  cups:
+    build: ./app-cups
+    network_mode: host
+    privileged: true
+    ports:
+      - '631:631'
+    labels:
+      io.balena.features.dbus: '1'
+    environment:
+      - 'DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket'
+  payment-verifone:
+    build: ./component-payment-verifone
+    network_mode: host
+    restart: always
+  server:
+    build: ./app-payment
+    restart: always
+    network_mode: host
+    devices:
+      - /dev/dri
+    group_add:
+      - video
+    volumes:
+      - 'xserver:/tmp/.X11-unix'
+  xserver:
+    build: balenablocks/xserver:latest
+    restart: always
+    privileged: true
+    volumes:
+      - 'xserver:/tmp/.X11-unix'
