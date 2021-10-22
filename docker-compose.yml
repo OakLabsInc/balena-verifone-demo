@@ -28,7 +28,7 @@ services:
     volumes:
       - 'xserver:/tmp/.X11-unix'
   xserver:
-    build: balenablocks/xserver:latest
+    build: balenablocks/xserver
     restart: always
     privileged: true
     volumes:
