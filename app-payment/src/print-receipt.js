@@ -4,7 +4,7 @@ const concat = require("concat-stream")
 const { join } = require('path')
 const fs = require('fs')
 const printer = require(join(__dirname, 'print-receipt'))
-const printerName = process.env.PRINTER_NAME || "http://localhost:631/printers/TM-T88V"
+const printerName = process.env.PRINTER_NAME || "http://localhost:9631/printers/TM-T88V"
 
 const capitalize = (s) => {
   if (typeof s !== 'string') return ''

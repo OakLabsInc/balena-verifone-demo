@@ -11,4 +11,4 @@ services:
     volumes:
       - /var/run/dbus:/var/run/dbus
     ports:
-      - '631:631'
+      - '9631:9631'

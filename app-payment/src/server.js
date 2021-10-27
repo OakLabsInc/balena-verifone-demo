@@ -10,9 +10,10 @@ const _ = require('lodash')
 
 const app = express()
 const port = process.env.PORT ? _.toNumber(process.env.PORT) : 9000
+const remoteUrl = process.env.REMOTE_URL || 'http://static.oak.host/verifone-demos/poc/index.html'
 
 const printer = require(join(__dirname, 'print-receipt'))
-const printerName = process.env.PRINTER_NAME || "http://localhost:631/printers/TM-T88V"
+const printerName = process.env.PRINTER_NAME || "http://localhost:9631/printers/TM-T88V"
 
 process.env.NODE_ENV = 'local'
 
@@ -112,7 +113,7 @@ async function loadWindow () {
     })
 
     window = oak.load({
-      url: `http://localhost:${port}/`,
+      url: remoteUrl,
       ontop: false,
       insecure: true,
       flags: ['enable-vp8-alpha-playback'],
