@@ -59,8 +59,8 @@ async function printReceipt (printerName, data, cb) {
   let taxLabel = parseFloat(taxRate * 100).toFixed(2) + "%"
   let grandTotal = data.cart.grandTotal
 
-  let logoUrl = join(__dirname, "public", "images","printer-logo.png")
-  let qrcodeUrl = join(__dirname, "public", "images","printer-qrcode.png")
+  let logoUrl = process.env.PRINTER_LOGO_URL || join(__dirname, "public", "images","printer-logo.png")
+  let qrcodeUrl = process.env.PRINTER_QRCODE_URL || join(__dirname, "public", "images","printer-qrcode.png")
 
   doc.fontSize(10)
   generateHr(doc)
