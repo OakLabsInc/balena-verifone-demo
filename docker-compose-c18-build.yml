@@ -1,0 +1,38 @@
+version: '2.1'
+volumes:
+  xserver:
+services:
+  app-cups:
+    build: ./app-cups
+    image: oaklabs/app-cups:commonos
+    network_mode: host
+    devices:
+      - /dev/bus
+    volumes:
+      - /var/run/dbus:/var/run/dbus
+    ports:
+      - '9631:9631'
+  component-payment-verifone:
+    build: ./component-payment-verifone
+    image: oaklabs/component-payment-verifone:commonos
+    network_mode: host
+    environment:
+      - APPLICATION_PORT=9000
+      - PORT=9001
+  app-payment:
+    build: ./app-payment
+    image: oaklabs/app-payment:commonos
+    network_mode: host
+    devices:
+      - /dev/dri
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev/shm:/dev/shm
+    environment:
+      - PORT=9000
+      - DISPLAY=:0
+      - PAYMENT_PORT=9001
+      - TERMINAL_IP=192.168.86.44
+      - TZ=America/Los_Angeles
+      - NODE_ENV=production
+      - REMOTE_URL=https://storage.googleapis.com/static.oak.host/verifone-demos/poc/index.html
